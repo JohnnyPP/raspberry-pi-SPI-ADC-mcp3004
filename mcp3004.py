@@ -15,4 +15,4 @@ def get_adc(channel):
 
 while True:
     print get_adc(0)
-    time.sleep(1)
+    #time.sleep(1)
