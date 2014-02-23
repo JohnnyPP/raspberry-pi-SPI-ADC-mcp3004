@@ -30,9 +30,3 @@ meanTime = np.mean(AcquiringTime)
 print 'Mean ADC sampling time of', numberOfSamplesToAcquire, 'samples:', "{0:.4f}".format(meanTime), \
 '[s]' '\nStandard deviation:', "{0:.4f}".format(np.std(AcquiringTime)), '[s]' \
 '\nNumber of samples pro second:', numberOfSamplesToAcquire/meanTime, '[S/s]'
-
-
-
-#while True:
-    #print get_adc(0)
-    #time.sleep(1)
