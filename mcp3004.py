@@ -6,7 +6,7 @@ import numpy as np
 #Establish SPI connection with Bus 0, Device 0
 spi = spidev.SpiDev()
 spi.open(0,0)
-numberOfSamplesToAcquire = 10000
+numberOfSamplesToAcquire = 100
 numberOfMeasurements = 10
 ADCdata = []
 AcquiringTime = []
@@ -26,6 +26,7 @@ for i in range(numberOfMeasurements):
     startTimer = time.clock()
     for i in range(numberOfSamplesToAcquire):
         ADCdata.append(get_adc(0))
+        time.sleep(0.001)
     
     AcquiringTime.append(time.clock() - startTimer)
 
