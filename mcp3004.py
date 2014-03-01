@@ -7,6 +7,7 @@ import numpy as np
 spi = spidev.SpiDev()
 spi.open(0,0)
 numberOfSamplesToAcquire = 10000
+numberOfMeasurements = 10
 ADCdata = []
 AcquiringTime = []
 
@@ -18,7 +19,10 @@ def get_adc(channel):
     #Return value from 0-1023
     return adcout
 
-for i in range(10):   
+print 'Starting acquiring', numberOfSamplesToAcquire, 'samples.' \
+ '\nNumber of measuements in a row: ', numberOfMeasurements
+
+for i in range(numberOfMeasurements):   
     startTimer = time.clock()
     for i in range(numberOfSamplesToAcquire):
         ADCdata.append(get_adc(0))
