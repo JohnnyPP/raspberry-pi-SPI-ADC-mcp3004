@@ -23,12 +23,11 @@ print 'Starting acquiring', numberOfSamplesToAcquire, 'samples.' \
  '\nNumber of measuements in a row: ', numberOfMeasurements
 
 for i in range(numberOfMeasurements):   
-    startTimer = time.clock()
+    startTimer = time.time()
     for i in range(numberOfSamplesToAcquire):
         ADCdata.append(get_adc(0))
-        time.sleep(0.001)
-    
-    AcquiringTime.append(time.clock() - startTimer)
+        time.sleep(0.006101)  
+    AcquiringTime.append(time.time() - startTimer)
 
 meanTime = np.mean(AcquiringTime)
 
