@@ -26,6 +26,7 @@ class ProducerThread(Thread):
         for i in range(numberOfSamplesToAcquire):
             queue.put(get_adc(0))         
             time.sleep(0.00579)
+        queue.task_done()    
             
 class ConsumerThread(Thread):
     def run(self):
