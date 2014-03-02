@@ -6,7 +6,7 @@ import numpy as np
 #Establish SPI connection with Bus 0, Device 0
 spi = spidev.SpiDev()
 spi.open(0,0)
-numberOfSamplesToAcquire = 100
+numberOfSamplesToAcquire = 1000
 numberOfMeasurements = 10
 ADCdata = []
 AcquiringTime = []
@@ -26,11 +26,11 @@ for i in range(numberOfMeasurements):
     startTimer = time.time()
     for i in range(numberOfSamplesToAcquire):
         ADCdata.append(get_adc(0))
-        time.sleep(0.006101)  
+        time.sleep(0.0028)  
     AcquiringTime.append(time.time() - startTimer)
 
 meanTime = np.mean(AcquiringTime)
 
 print 'Mean ADC sampling time of', numberOfSamplesToAcquire, 'samples:', "{0:.4f}".format(meanTime), \
 '[s]' '\nStandard deviation:', "{0:.4f}".format(np.std(AcquiringTime)), '[s]' \
-'\nNumber of samples pro second:', numberOfSamplesToAcquire/meanTime, '[S/s]'
+'\nNumber of samples per second:', numberOfSamplesToAcquire/meanTime, '[S/s]'
