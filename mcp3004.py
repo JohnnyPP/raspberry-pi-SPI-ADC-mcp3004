@@ -4,13 +4,19 @@ import numpy as np
 from threading import Thread
 import threading
 from Queue import Queue
+import socket
 
-queue = Queue(10)
+HOST = "192.168.1.101"
+PORT = 5000
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
 spi = spidev.SpiDev()
 spi.open(0,0)
 numberOfSamplesToAcquire = 100
 ADCdata = []
 AcquiringTime = 0
+
+queue = Queue(10)
 
 def get_adc(channel):
     #Perform SPI transaction and store returned bits in 'r'
@@ -31,9 +37,12 @@ class ProducerThread(Thread):
 class ConsumerThread(Thread):
     def run(self):
         global queue 
+
         startTimer = time.time()
         for i in range(numberOfSamplesToAcquire):
-            ADCdata.append(queue.get())
+            data = queue.get()
+            ADCdata.append(data)
+            s.sendto(str(data),(HOST,PORT))
         AcquiringTime = (time.time() - startTimer)
         print 'ADC sampling time: ', AcquiringTime
         print 'Number of samples per second:', numberOfSamplesToAcquire/AcquiringTime, '[S/s]'
