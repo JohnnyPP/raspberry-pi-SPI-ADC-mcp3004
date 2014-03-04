@@ -12,7 +12,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 spi = spidev.SpiDev()
 spi.open(0,0)
-numberOfSamplesToAcquire = 100
+numberOfSamplesToAcquire = 2500
+
 ADCdata = []
 AcquiringTime = 0
 
@@ -32,6 +33,7 @@ class ProducerThread(Thread):
         for i in range(numberOfSamplesToAcquire):
             queue.put(get_adc(0))         
             time.sleep(0.00579)
+            #time.sleep(0.1)
         queue.task_done()    
             
 class ConsumerThread(Thread):
